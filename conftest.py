@@ -1,4 +1,3 @@
-
 from appium import webdriver
 from typing import Any, Dict
 from appium.options.common import AppiumOptions
@@ -9,31 +8,36 @@ import pytest
 
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-from selenium.common.exceptions import ElementNotVisibleException, NoSuchElementException
+from selenium.common.exceptions import (
+    ElementNotVisibleException,
+    NoSuchElementException,
+)
 import time
+
+
 @pytest.fixture(scope="class")
 def setup(request):
 
     global appium_service
-    appium_service= AppiumService()
+    appium_service = AppiumService()
     appium_service.start()
     global driver
 
     cap: Dict[str, Any] = {
-        'platformName': 'Android',
-        'automationName': "uiautomator2",
-        'deviceName': 'emulator-5554',
-        'appPackage': 'com.android.chrome',
-        'appActivity': 'com.google.android.apps.chrome.Main',
-        'language': 'en',
-        'locale': 'US'
+        "platformName": "Android",
+        "automationName": "uiautomator2",
+        "deviceName": "emulator-5554",
+        "app": "C:\\Users\\Primotech\\Documents\\Appium-project\\appium\\Ecommerce demo_1.0.0_APKPure.apk",
+        # 'appPackage': 'com.android.chrome',
+        # 'appActivity': 'com.google.android.apps.chrome.Main',
+        "language": "en",
+        "locale": "US",
     }
 
-    url = 'http://localhost:4723'
+    url = "http://localhost:4723"
 
     driver = webdriver.Remote(url, options=AppiumOptions().load_capabilities(cap))
 
-    
     request.cls.driver = driver
     yield
     print("closing teardown_function")
