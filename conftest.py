@@ -40,6 +40,6 @@ def setup(request):
 
     request.cls.driver = driver
     yield
-    print("closing  the teardown_function")
+    print("closing teardown_function")
     driver.quit()
     appium_service.stop()
